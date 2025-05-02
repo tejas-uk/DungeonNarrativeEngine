@@ -90,7 +90,9 @@ export const worldOutputSchema = z.object({
   world: z.string(),
   npcs: z.string(),
   plot: z.string(),
-  encounters: z.string()
+  encounters: z.string(),
+  dmScript: z.string().optional(),
+  playerSheets: z.string().optional()
 });
 
 export const insertSavedWorldSchema = createInsertSchema(savedWorlds);

@@ -103,6 +103,109 @@ ${formData.customSeed ? `- Custom Seed: ${formData.customSeed}` : ''}
   return prompt;
 }
 
+// Function to generate DM scripts for speech synthesis
+export async function generateDMScript(worldOutput: WorldOutput): Promise<string> {
+  try {
+    const systemPrompt = `You are an expert Dungeons & Dragons Dungeon Master creating a narration script that will be used with text-to-speech for a D&D game session. 
+    
+Your task is to create a detailed, engaging script for the DM to read aloud during the game, based on the world, NPCs, plot, and encounters provided. The script should:
+
+1. Include narrative descriptions of key locations, scenes, and moments in the campaign.
+2. Contain dialogue for NPCs with clear speaker attributions (e.g., "Guard Captain: Halt! Who goes there?")
+3. Include atmospheric descriptions that set the mood and tone.
+4. Provide transition narration between scenes and locations.
+5. Structure the script to follow the campaign's plot points and story arcs.
+6. Include brief stage directions or emotion cues in [brackets] where appropriate.
+7. Format the script for easy reading, with speaker names in bold or separated clearly from dialogue.
+8. Use appropriate pacing, with shorter sentences for action and longer, more detailed ones for descriptions.
+9. Add vocal direction notes for emphasis or tone where helpful.
+
+The script should be optimized for text-to-speech systems, avoiding complex words or formatting that might not be interpreted correctly by voice synthesis.`;
+
+    const userPrompt = `Based on the following campaign materials, create a comprehensive DM narration script optimized for voice delivery.
+
+WORLD DESCRIPTION:
+${worldOutput.world}
+
+NPCs:
+${worldOutput.npcs}
+
+PLOT:
+${worldOutput.plot}
+
+ENCOUNTERS:
+${worldOutput.encounters}
+
+Format the script in a way that makes it easy for text-to-speech systems to differentiate between narrative descriptions, character dialogue, and scene transitions.`;
+
+    const response = await anthropic.messages.create({
+      model: MODEL,
+      max_tokens: 4000,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }],
+    });
+
+    return response.content[0].text;
+  } catch (error) {
+    console.error('Error generating DM script with Claude:', error);
+    throw new Error('Failed to generate DM script with Claude API. Please try again later.');
+  }
+}
+
+// Function to generate player character sheets
+export async function generatePlayerSheets(worldOutput: WorldOutput): Promise<string> {
+  try {
+    const systemPrompt = `You are an expert Dungeons & Dragons game designer creating character sheets for player characters. 
+    
+Your task is to create detailed character sheets for players based on the world, NPCs, plot, and encounters provided. The character sheets should:
+
+1. Include all standard D&D 5e character sheet elements (ability scores, skills, equipment, etc.)
+2. Be tailored to the world and campaign setting
+3. Provide rich background details that connect to the story
+4. Include character-specific plot hooks and connections to NPCs
+5. Feature appropriate starting equipment for the setting and character class
+6. Include motivations, goals, and potential character arcs
+7. Be balanced and playable while remaining interesting
+
+Format the sheets clearly with distinct sections for different types of information.`;
+
+    const userPrompt = `Based on the following campaign materials, create detailed character sheets for player characters appropriate for this campaign setting.
+
+WORLD DESCRIPTION:
+${worldOutput.world}
+
+NPCs:
+${worldOutput.npcs}
+
+PLOT:
+${worldOutput.plot}
+
+ENCOUNTERS:
+${worldOutput.encounters}
+
+For each character sheet, include the following sections:
+- Character name, race, class, and background
+- Ability scores and key skills
+- Background and personal history
+- Connections to the world and campaign
+- Starting equipment
+- Character hooks and potential goals
+- Personality traits, ideals, bonds, and flaws`;
+
+    const response = await anthropic.messages.create({
+      model: MODEL,
+      max_tokens: 4000,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }],
+    });
+
+    return response.content[0].text;
+  } catch (error) {
+    console.error('Error generating player sheets with Claude:', error);
+    throw new Error('Failed to generate player sheets with Claude API. Please try again later.');
+  }
+}
+
 export async function generateWorld(formData: WorldFormData): Promise<WorldOutput> {
   const formattedData = formatFormDataForPrompt(formData);
   

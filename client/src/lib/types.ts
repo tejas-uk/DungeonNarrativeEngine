@@ -212,13 +212,15 @@ export type WorldFormData = {
   customSeed?: string;
 };
 
-export type OutputTab = 'world' | 'npcs' | 'plot' | 'encounters';
+export type OutputTab = 'world' | 'npcs' | 'plot' | 'encounters' | 'dm-script' | 'player-sheets';
 
 export type WorldOutput = {
   world: string;
   npcs: string;
   plot: string;
   encounters: string;
+  dmScript?: string;
+  playerSheets?: string;
 };
 
 export type SavedWorld = {

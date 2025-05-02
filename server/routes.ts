@@ -2,7 +2,7 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { worldFormSchema, worldOutputSchema } from "@shared/schema";
-import { generateWorld } from "./anthropic";
+import { generateWorld, generateDMScript, generatePlayerSheets } from "./anthropic";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
