@@ -15,8 +15,8 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [volumeLevel, setVolumeLevel] = useState(0);
-  const [apiKey, setApiKey] = useState("");
-  const [isApiKeySet, setIsApiKeySet] = useState(false);
+  const [apiKey, setApiKey] = useState("72170c11-edc9-464c-856f-ce0263245823");
+  const [isApiKeySet, setIsApiKeySet] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const vapiRef = useRef<Vapi | null>(null);
   const { toast } = useToast();
@@ -58,7 +58,7 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
       setErrorMessage(null); // Clear any previous errors
 
       // Initialize Vapi with the user's public key
-      vapiRef.current = new Vapi(apiKey);
+      vapiRef.current = new Vapi("8ee230a5-5bd2-44b1-8396-c549a486ac66");
 
       // Add event listeners
       vapiRef.current.on("speech-start", () => {
@@ -93,19 +93,8 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
 
       vapiRef.current.on("error", (error) => {
         console.error("Vapi error:", error);
-        // Extract the error message if it exists
-        let errorMsg = "There was an error with the voice assistant. Please check your API key and try again.";
-        
-        // Try to extract a more specific error message if available
-        if (error && typeof error === 'object') {
-          if ('error' in error && typeof error.error === 'object' && error.error !== null) {
-            const errorObj = error.error as any;
-            if ('message' in errorObj && typeof errorObj.message === 'string') {
-              errorMsg = errorObj.message;
-            }
-          }
-        }
-        
+        const errorMsg =
+          "There was an error with the voice assistant. Please check your API key and try again.";
         setErrorMessage(errorMsg);
         toast({
           title: "Error",
@@ -113,40 +102,29 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
           variant: "destructive",
         });
         setIsLoading(false);
-        setIsConnected(false);
       });
 
       // Start the call with OpenAI's GPT-4o model and the DM script as the system message
+      // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
+
       console.log("Starting Vapi with OpenAI GPT-4o and DM script...");
 
       try {
-        await vapiRef.current.start({
-          model: {
-            provider: "openai",
-            model: "gpt-4o",
-            messages: [
-              {
-                role: "system",
-                content: `You are a Dungeon Master for a Dungeons & Dragons game. Use the following DM script to guide your narrative and interactions with the players. Maintain the atmosphere and style throughout the game session.\n\n${dmScript}`,
-              },
-              {
-                role: "assistant",
-                content:
-                  "Welcome, brave adventurers, to our Dungeons & Dragons session. I will be your Dungeon Master today. What would you like to do?",
-              },
-            ],
-          },
-          voice: {
-            provider: "playht",
-            voiceId: "larry", // A deep, dramatic voice for the DM
-          },
-          name: "Dungeon Master Assistant",
-          transcriber: {
-            provider: "deepgram",
-            model: "nova-2",
-            language: "en-US",
-          },
-        } as any);
+        // Use the existing assistant ID with customized DM script
+        const assistantId = "2256810e-f7f5-483f-8dd9-16240720eca2";
+        
+        // Define assistant overrides with the DM script as system message
+        // Use 'as any' to bypass type checking since the Vapi types may have limitations
+        const assistantOverrides: any = {
+          recordingEnabled: true,
+          // Use variableValues to dynamically inject the DM script
+          variableValues: {
+            dmScript: dmScript
+          }
+        };
+        
+        // Start the call using the existing assistant ID with overrides
+        await vapiRef.current.start(assistantId, assistantOverrides);
 
         console.log("Vapi start call successful");
       } catch (startError) {
@@ -155,13 +133,8 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
       }
     } catch (error) {
       console.error("Failed to start voice assistant:", error);
-      let errorMsg = "Failed to connect to the voice assistant service. Please check your API key and try again.";
-      
-      // Try to extract a more specific error message
-      if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
-        errorMsg = error.message;
-      }
-      
+      const errorMsg =
+        "Failed to connect to the voice assistant service. Please check your API key and try again.";
       setErrorMessage(errorMsg);
       toast({
         title: "Connection Failed",
@@ -169,7 +142,6 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
         variant: "destructive",
       });
       setIsLoading(false);
-      setIsConnected(false);
     }
   };
 
@@ -235,7 +207,8 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
               >
                 Vapi Dashboard
               </a>
-              . Make sure to use your <strong>public key</strong>, not your private key.
+              . Make sure to use your <strong>public key</strong>, not your private key. 
+              This will connect to a pre-configured Dungeon Master assistant (ID: 2256810e-f7f5-483f-8dd9-16240720eca2).
             </p>
             <div className="mb-2">
               <Label
