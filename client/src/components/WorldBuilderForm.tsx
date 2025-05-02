@@ -193,6 +193,18 @@ const WorldBuilderForm = ({ onSaveWorld }: WorldBuilderFormProps) => {
         type: 'criminal',
         description: 'A network of thieves and spies that operates across the civilized lands, trading in secrets and stolen goods.',
         relationships: 'Has informants in every major city and maintains an uneasy truce with local authorities through blackmail.'
+      },
+      {
+        name: 'The Golden Consortium',
+        type: 'merchant-guilds',
+        description: 'A powerful alliance of merchant houses that controls much of the trade across the realms.',
+        relationships: 'Finances the Kingdom of Lumiria and has strong ties to the Dwarven Holds.'
+      },
+      {
+        name: 'The Circle of Nine',
+        type: 'academic',
+        description: 'An elite council of powerful mages who regulate magical practices and research.',
+        relationships: 'Neutral in political affairs but will intervene when magic threatens the balance of the world.'
       }
     ]);
     
@@ -203,6 +215,33 @@ const WorldBuilderForm = ({ onSaveWorld }: WorldBuilderFormProps) => {
     
     methods.setValue('playerCount', 5);
     methods.setValue('startingLevelRange', '4-6');
+    methods.setValue('allowedClasses', ['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', 'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard', 'artificer']);
+    methods.setValue('characters', [
+      {
+        name: 'Thorne Ironheart',
+        race: 'dwarf',
+        class: 'fighter',
+        background: 'soldier',
+        personalityTraits: 'Brave and stubborn, always stands his ground.',
+        ideals: 'Duty. Responsibility to ones family and clan comes before all else.',
+        bonds: 'I seek to restore my familys honor after my fathers disgrace.',
+        flaws: 'I have a weakness for strong drink and can be reckless when intoxicated.'
+      },
+      {
+        name: 'Lyra Moonshadow',
+        race: 'elf',
+        class: 'wizard',
+        background: 'sage',
+        personalityTraits: 'Speaks precisely and values knowledge above all.',
+        ideals: 'Knowledge. The path to power and self-improvement is through knowledge.',
+        bonds: 'I have been searching my whole life for the answer to a specific question.',
+        flaws: 'I am dismissive of those who lack arcane training.'
+      }
+    ]);
+    methods.setValue('partyRelationships', 'The party met while investigating strange magical disturbances along the border between Lumiria and the Elven Conclave. They have formed a tentative alliance based on mutual interests.');
+    
+    methods.setValue('namingConvention', 'random-fantasy');
+    methods.setValue('measurementSystem', 'imperial');
     
     toast({
       title: "Test data loaded",
