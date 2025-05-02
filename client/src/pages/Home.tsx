@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import Sidebar from '@/components/Sidebar';
 import WorldBuilderForm from '@/components/WorldBuilderForm';
+import VapiWidget from '@/components/VapiWidget'; // Import the new component
 import { WorldFormData, SavedWorld, WorldOutput as WorldOutputType } from '@/lib/types';
 import { apiRequest } from '@/lib/queryClient';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -55,6 +56,10 @@ const Home = () => {
             <Link href="/saved-worlds" className="text-accent hover:text-accent-light font-cinzel underline">
               View Saved Worlds
             </Link>
+          </div>
+          {/* Add the Vapi Widget here */}
+          <div className="mt-6 flex justify-center">
+            <VapiWidget />
           </div>
         </header>
 
