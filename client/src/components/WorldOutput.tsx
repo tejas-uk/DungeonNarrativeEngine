@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
+import DMVoiceAssistant from './DMVoiceAssistant';
 
 interface WorldOutputProps {
   output: WorldOutputType;
@@ -155,6 +156,7 @@ const WorldOutput = ({ output }: WorldOutputProps) => {
           <TabsContent value="dm-script" className="mt-4">
             <div className="prose prose-sm max-w-none text-brown-dark">
               <div dangerouslySetInnerHTML={{ __html: output.dmScript.replace(/\n/g, '<br/>') }} />
+              <DMVoiceAssistant dmScript={output.dmScript} />
             </div>
           </TabsContent>
         )}
