@@ -65,8 +65,8 @@ const SavedWorlds = () => {
         <div className="container mx-auto px-4 py-8 max-w-7xl">
           <header className="mb-8 text-center">
             <h1 className="font-medieval text-4xl md:text-6xl text-accent mb-2">Saved Worlds</h1>
-            <Link href="/">
-              <a className="text-accent hover:text-accent-light font-cinzel underline">Back to World Builder</a>
+            <Link href="/" className="text-accent hover:text-accent-light font-cinzel underline">
+              Back to World Builder
             </Link>
           </header>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -96,8 +96,8 @@ const SavedWorlds = () => {
         <div className="container mx-auto px-4 py-8 max-w-7xl">
           <header className="mb-8 text-center">
             <h1 className="font-medieval text-4xl md:text-6xl text-accent mb-2">Saved Worlds</h1>
-            <Link href="/">
-              <a className="text-accent hover:text-accent-light font-cinzel underline">Back to World Builder</a>
+            <Link href="/" className="text-accent hover:text-accent-light font-cinzel underline">
+              Back to World Builder
             </Link>
           </header>
           <div className="bg-parchment p-6 rounded-lg text-center">
@@ -120,8 +120,8 @@ const SavedWorlds = () => {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <header className="mb-8 text-center">
           <h1 className="font-medieval text-4xl md:text-6xl text-accent mb-2">Saved Worlds</h1>
-          <Link href="/">
-            <a className="text-accent hover:text-accent-light font-cinzel underline">Back to World Builder</a>
+          <Link href="/" className="text-accent hover:text-accent-light font-cinzel underline">
+            Back to World Builder
           </Link>
         </header>
 
@@ -129,11 +129,13 @@ const SavedWorlds = () => {
           <div className="bg-parchment p-6 rounded-lg text-center">
             <h2 className="text-2xl font-cinzel text-primary mb-4">No Saved Worlds</h2>
             <p className="text-brown-dark mb-4">You haven't created any worlds yet. Start creating one now!</p>
-            <Link href="/">
-              <Button className="bg-accent text-brown-dark hover:bg-accent-dark">
-                Create New World
-              </Button>
-            </Link>
+            <div>
+              <Link href="/">
+                <Button className="bg-accent text-brown-dark hover:bg-accent-dark">
+                  Create New World
+                </Button>
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
