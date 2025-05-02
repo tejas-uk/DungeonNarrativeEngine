@@ -15,8 +15,8 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [volumeLevel, setVolumeLevel] = useState(0);
-  const [apiKey, setApiKey] = useState("72170c11-edc9-464c-856f-ce0263245823");
-  const [isApiKeySet, setIsApiKeySet] = useState(true);
+  const [apiKey, setApiKey] = useState("");
+  const [isApiKeySet, setIsApiKeySet] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const vapiRef = useRef<Vapi | null>(null);
   const { toast } = useToast();
@@ -58,7 +58,7 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
       setErrorMessage(null); // Clear any previous errors
 
       // Initialize Vapi with the user's public key
-      vapiRef.current = new Vapi("72170c11-edc9-464c-856f-ce0263245823");
+      vapiRef.current = new Vapi(apiKey);
 
       // Add event listeners
       vapiRef.current.on("speech-start", () => {
@@ -93,8 +93,19 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
 
       vapiRef.current.on("error", (error) => {
         console.error("Vapi error:", error);
-        const errorMsg =
-          "There was an error with the voice assistant. Please check your API key and try again.";
+        // Extract the error message if it exists
+        let errorMsg = "There was an error with the voice assistant. Please check your API key and try again.";
+        
+        // Try to extract a more specific error message if available
+        if (error && typeof error === 'object') {
+          if ('error' in error && typeof error.error === 'object' && error.error !== null) {
+            const errorObj = error.error as any;
+            if ('message' in errorObj && typeof errorObj.message === 'string') {
+              errorMsg = errorObj.message;
+            }
+          }
+        }
+        
         setErrorMessage(errorMsg);
         toast({
           title: "Error",
@@ -102,15 +113,13 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
           variant: "destructive",
         });
         setIsLoading(false);
+        setIsConnected(false);
       });
 
       // Start the call with OpenAI's GPT-4o model and the DM script as the system message
-      // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-
       console.log("Starting Vapi with OpenAI GPT-4o and DM script...");
 
       try {
-        // Using 'as any' to bypass type checking since the Vapi types may not be fully up-to-date
         await vapiRef.current.start({
           model: {
             provider: "openai",
@@ -146,8 +155,13 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
       }
     } catch (error) {
       console.error("Failed to start voice assistant:", error);
-      const errorMsg =
-        "Failed to connect to the voice assistant service. Please check your API key and try again.";
+      let errorMsg = "Failed to connect to the voice assistant service. Please check your API key and try again.";
+      
+      // Try to extract a more specific error message
+      if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') {
+        errorMsg = error.message;
+      }
+      
       setErrorMessage(errorMsg);
       toast({
         title: "Connection Failed",
@@ -155,6 +169,7 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
         variant: "destructive",
       });
       setIsLoading(false);
+      setIsConnected(false);
     }
   };
 
@@ -220,7 +235,7 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
               >
                 Vapi Dashboard
               </a>
-              .
+              . Make sure to use your <strong>public key</strong>, not your private key.
             </p>
             <div className="mb-2">
               <Label
