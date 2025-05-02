@@ -139,10 +139,91 @@ const WorldBuilderForm = ({ onSaveWorld }: WorldBuilderFormProps) => {
       description: "Your world has been saved successfully.",
     });
   };
+  
+  const fillWithTestData = () => {
+    methods.setValue('worldName', 'Eldoria');
+    methods.setValue('regionsCount', 5);
+    methods.setValue('climates', ['temperate', 'tropical', 'arid', 'polar']);
+    methods.setValue('terrains', ['mountains', 'forests', 'rivers', 'deserts', 'oceans', 'plains']);
+    methods.setValue('magicalPhenomena', ['ley-lines', 'floating-islands', 'magical-storms']);
+    
+    methods.setValue('civilizationsCount', 3);
+    methods.setValue('civilizations', [
+      {
+        name: 'Kingdom of Lumiria',
+        dominantRaces: ['human', 'half-elf'],
+        government: 'monarchy',
+        economy: 'agrarian',
+        values: ['honor', 'tradition', 'freedom']
+      },
+      {
+        name: 'Dwarven Holds of Kazad',
+        dominantRaces: ['dwarf'],
+        government: 'oligarchy',
+        economy: 'industrial',
+        values: ['tradition', 'knowledge']
+      },
+      {
+        name: 'Elven Conclave of Silvermoon',
+        dominantRaces: ['elf'],
+        government: 'democracy',
+        economy: 'magical',
+        values: ['knowledge', 'freedom', 'secrecy']
+      }
+    ]);
+    
+    methods.setValue('magicLevel', 'common');
+    methods.setValue('techLevel', 'medieval');
+    methods.setValue('powerSources', ['arcane', 'divine', 'elemental']);
+    
+    methods.setValue('worldAge', 'ancient');
+    methods.setValue('worldChangingEvents', 3);
+    methods.setValue('originMyths', 'The world was born when the Dragon of Time shed a single scale into the cosmic void, creating the material plane.');
+    
+    methods.setValue('factionsCount', 4);
+    methods.setValue('factions', [
+      {
+        name: 'The Order of the Silver Hand',
+        type: 'religious',
+        description: 'A knightly order devoted to the moon goddess Selene, who protect travelers and hunt undead creatures.',
+        relationships: 'Allied with the Kingdom of Lumiria but viewed with suspicion by the arcane colleges.'
+      },
+      {
+        name: 'The Hidden Veil',
+        type: 'criminal',
+        description: 'A network of thieves and spies that operates across the civilized lands, trading in secrets and stolen goods.',
+        relationships: 'Has informants in every major city and maintains an uneasy truce with local authorities through blackmail.'
+      }
+    ]);
+    
+    methods.setValue('genre', 'high-fantasy');
+    methods.setValue('moralTone', 'shades-of-gray');
+    methods.setValue('themes', ['discovery', 'redemption', 'betrayal', 'revolution']);
+    methods.setValue('deadliness', 'moderate');
+    
+    methods.setValue('playerCount', 5);
+    methods.setValue('startingLevelRange', '4-6');
+    
+    toast({
+      title: "Test data loaded",
+      description: "Form has been filled with sample data for testing.",
+    });
+  };
 
   return (
     <div className="relative">
       {generateMutation.isPending && <LoadingOverlay message="Generating your world..." />}
+      
+      <div className="mb-4 flex justify-end">
+        <Button
+          type="button"
+          onClick={fillWithTestData}
+          className="bg-primary hover:bg-primary-dark text-parchment font-bold py-2 px-4 rounded"
+        >
+          Fill with Test Data
+        </Button>
+      </div>
+      
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <FormTabs activeTab={activeTab} onTabChange={handleTabChange} />
