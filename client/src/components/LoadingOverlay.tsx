@@ -28,7 +28,9 @@ const LoadingOverlay = ({ message = "Loading..." }: { message?: string }) => {
           {message}
         </h3>
         <p className="text-brown-dark">
-          Claude is crafting your world. This may take a minute or two...
+          {message.includes("DM voice assistant") 
+            ? "Connecting to voice services. This may take a moment..." 
+            : "Claude is crafting your world. This may take a minute or two..."}
         </p>
       </div>
     </div>
