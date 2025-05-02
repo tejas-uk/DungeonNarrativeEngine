@@ -1,0 +1,141 @@
+D&D Procedural World & Storyline Engine — Requirements Draft
+
+1  Vision & Scope
+
+Generate cohesive Dungeons & Dragons worlds and storylines on demand by exposing a set of tunable parameters (“knobs”) to the game‑master. The engine should output everything needed to run a campaign, from a high‑level plot arc down to encounter stat‑blocks.
+
+2  Key Inputs (“Knobs”)
+
+2.1  World Parameters
+
+Geography / Terrain – biome distribution, climate bands, natural wonders
+
+Culture Matrix – societal structure, predominant race(s), religions, politics, economy
+
+Technology & Magic Level – low‑magic bronze age up through high‑magic steampunk
+
+Historical Era & Timeline – founding myths, recent conflicts, major calendar events
+
+Factions & Power Centers – kingdoms, guilds, cults, megacorps, planar forces
+
+2.2  Narrative Tone & Themes
+
+Primary genre focus (heroic fantasy, grimdark, mystery, political intrigue, etc.)
+
+Moral alignment spectrum (black‑and‑white vs. shades of gray)
+
+Difficulty / danger level (low, medium, deadly)
+
+2.3  Character Parameters
+
+Party Composition – size, level range, class distribution
+
+Individual Seeds – race, background, personality traits, ideals, bonds, flaws
+
+Inter‑Party Relationships – rivalries, romances, shared backstory hooks
+
+4  Data Capture Requirements
+
+4.1  User Input Interface
+
+Web-based or standalone app with support for:
+
+Sliders (e.g., magic level: low ←→ high)
+
+Dropdowns (e.g., terrain type: forest, desert, mountain...)
+
+Text boxes (e.g., custom faction names, specific character traits)
+
+Multi-select lists (e.g., select allowed races or deities)
+
+Preset themes (e.g., classic high fantasy, eldritch horror)
+
+4.2  Input Categories (Simplified User Prompts)
+
+World Settings
+
+What is your world's name? (Free text input)
+
+How many major regions or continents does it have? (Number input)
+
+Choose the climates found in your world: (Multi-select: temperate, arid, tropical, polar, alpine)
+
+What kinds of terrain are common? (Multi-select: mountains, forests, rivers, deserts, oceans, plains)
+
+Any unique magical phenomena? (Multi-select: ley lines, magical storms, floating islands, none, other)
+
+Cultures and Politics
+
+How many major civilizations exist? (Number input)
+
+What are the dominant races in each civilization? (Multi-select per civ: human, elf, dwarf, orc, dragonborn, etc.)
+
+What type of government do they have? (Dropdown: monarchy, theocracy, democracy, oligarchy, tribal, other)
+
+What is their economic base? (Dropdown: agrarian, mercantile, industrial, magical economy)
+
+What do they value most? (Multi-select: honor, conquest, secrecy, freedom, knowledge, tradition)
+
+Magic & Technology
+
+How prevalent is magic? (Slider: None → Rare → Common → Ubiquitous)
+
+What is the general tech level? (Dropdown: stone age, bronze age, medieval, renaissance, steampunk)
+
+What is the dominant power source? (Multi-select: arcane, divine, psionic, elemental, technological)
+
+Historical Background
+
+Is this a young or ancient world? (Dropdown: ancient, mid-age, newly formed)
+
+How many world-changing events are in the history? (Number input)
+
+Describe any origin myths or creator gods. (Free text input)
+
+Factions and Organizations
+
+How many major factions exist? (Number input)
+
+What types of factions? (Multi-select: political, religious, criminal, merchant guilds, academic)
+
+Describe the relationships between these factions. (Free text or interactive relationship map)
+
+Narrative Flavor
+
+What kind of genre best describes your campaign? (Dropdown: high fantasy, grimdark, sword & sorcery, mystery, etc.)
+
+How would you describe the moral tone? (Dropdown: black-and-white, shades of gray, ambiguous)
+
+What themes are central to your campaign? (Multi-select: redemption, betrayal, survival, discovery, revolution)
+
+How deadly should the world feel? (Slider: Low → Moderate → High → Lethal)
+
+Party & Characters
+
+How many players are in the party? (Number input)
+
+What is the starting level range? (Range selector or dropdown: 1-3, 4-6, 7-10, etc.)
+
+Which classes are allowed? (Multi-select: all core + optional subclasses)
+
+For each character:
+
+Name (Free text)
+
+Race (Dropdown)
+
+Class (Dropdown)
+
+Background (Dropdown)
+
+Personality traits, ideals, bonds, flaws (Free text or select from SRD list)
+
+Are there any existing relationships or secrets within the party? (Free text or checkboxes: rivals, lovers, shared mentor, hidden betrayal)
+
+Miscellaneous Options
+
+What kind of naming conventions would you like? (Dropdown: real-world inspired, elvish-sounding, Norse-style, random fantasy, custom)
+
+Measurement preference? (Radio buttons: Metric / Imperial)
+
+Would you like to use a custom seed for consistency? (Optional text input)
