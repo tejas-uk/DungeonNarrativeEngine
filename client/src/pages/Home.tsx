@@ -12,7 +12,7 @@ const Home = () => {
   const queryClient = useQueryClient();
   
   const saveWorldMutation = useMutation({
-    mutationFn: async (data: { name: string, formData: WorldFormData, output?: WorldOutput }) => {
+    mutationFn: async (data: { name: string, formData: WorldFormData, output?: WorldOutputType }) => {
       const response = await apiRequest('POST', '/api/worlds', data);
       return response.json();
     },
@@ -32,7 +32,7 @@ const Home = () => {
     },
   });
 
-  const handleSaveWorld = (worldName: string, formData: WorldFormData, output?: WorldOutput) => {
+  const handleSaveWorld = (worldName: string, formData: WorldFormData, output?: WorldOutputType) => {
     if (!worldName.trim()) {
       toast({
         title: "Name required",
@@ -52,8 +52,8 @@ const Home = () => {
           <h1 className="font-medieval text-4xl md:text-6xl text-accent mb-2">D&D Procedural World & Storyline Engine</h1>
           <p className="text-parchment text-lg md:text-xl italic">Create your fantasy world with a few clicks</p>
           <div className="mt-4">
-            <Link href="/saved-worlds">
-              <a className="text-accent hover:text-accent-light font-cinzel underline">View Saved Worlds</a>
+            <Link href="/saved-worlds" className="text-accent hover:text-accent-light font-cinzel underline">
+              View Saved Worlds
             </Link>
           </div>
         </header>
