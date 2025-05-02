@@ -15,8 +15,8 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [volumeLevel, setVolumeLevel] = useState(0);
-  const [apiKey, setApiKey] = useState('');
-  const [isApiKeySet, setIsApiKeySet] = useState(false);
+  const [apiKey, setApiKey] = useState('72170c11-edc9-464c-856f-ce0263245823');
+  const [isApiKeySet, setIsApiKeySet] = useState(true);
   const vapiRef = useRef<Vapi | null>(null);
   const { toast } = useToast();
 
@@ -95,7 +95,8 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
       });
       
       // Start the call with OpenAI's GPT-4o model and the DM script as the system message
-      await vapiRef.current.start({
+      // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
+      const assistantConfig = {
         model: {
           provider: "openai",
           model: "gpt-4o",
@@ -120,7 +121,9 @@ const DMVoiceAssistant = ({ dmScript }: DMVoiceAssistantProps) => {
           model: "nova-2",
           language: "en-US",
         },
-      } as any);
+      };
+      
+      await vapiRef.current.start(assistantConfig);
       
     } catch (error) {
       console.error("Failed to start voice assistant:", error);
