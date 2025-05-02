@@ -145,7 +145,16 @@ Format the script in a way that makes it easy for text-to-speech systems to diff
       messages: [{ role: 'user', content: userPrompt }],
     });
 
-    return response.content[0].text;
+    // Check if content exists and has the text property
+    if (response.content && response.content.length > 0) {
+      const firstContent = response.content[0];
+      if ('text' in firstContent && typeof firstContent.text === 'string') {
+        return firstContent.text;
+      }
+    }
+    
+    // Fallback in case response structure is unexpected
+    return "Failed to generate DM script. Please try again.";
   } catch (error) {
     console.error('Error generating DM script with Claude:', error);
     throw new Error('Failed to generate DM script with Claude API. Please try again later.');
@@ -199,7 +208,16 @@ For each character sheet, include the following sections:
       messages: [{ role: 'user', content: userPrompt }],
     });
 
-    return response.content[0].text;
+    // Check if content exists and has the text property
+    if (response.content && response.content.length > 0) {
+      const firstContent = response.content[0];
+      if ('text' in firstContent && typeof firstContent.text === 'string') {
+        return firstContent.text;
+      }
+    }
+    
+    // Fallback in case response structure is unexpected
+    return "Failed to generate player sheets. Please try again.";
   } catch (error) {
     console.error('Error generating player sheets with Claude:', error);
     throw new Error('Failed to generate player sheets with Claude API. Please try again later.');
@@ -239,7 +257,21 @@ For any missing information, please fill in appropriate details that would creat
       messages: [{ role: 'user', content: userPrompt }],
     });
 
-    const content = response.content[0].text;
+    // Check if content exists and has the text property
+    let content = "";
+    if (response.content && response.content.length > 0) {
+      const firstContent = response.content[0];
+      if ('text' in firstContent && typeof firstContent.text === 'string') {
+        content = firstContent.text;
+      } else {
+        return {
+          world: 'No world content was generated.',
+          npcs: 'No NPCs were generated.',
+          plot: 'No plot was generated.',
+          encounters: 'No encounters were generated.'
+        };
+      }
+    }
     
     // Parse the response into the four sections
     const sections: Record<string, string> = {

@@ -134,6 +134,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+  
+  // Generate DM Script endpoint
+  app.post("/api/generate-dm-script", async (req: Request, res: Response) => {
+    try {
+      // Validate the world output
+      const worldOutput = worldOutputSchema.parse(req.body);
+      
+      // Generate DM script using Claude API
+      const dmScript = await generateDMScript(worldOutput);
+      
+      res.json({ dmScript });
+    } catch (error) {
+      console.error("Error generating DM script:", error);
+      
+      if (error instanceof ZodError) {
+        // Handle validation errors
+        const validationError = fromZodError(error);
+        return res.status(400).json({ message: validationError.message });
+      }
+      
+      res.status(500).json({ 
+        message: error instanceof Error ? error.message : "Failed to generate DM script" 
+      });
+    }
+  });
+  
+  // Generate Player Sheets endpoint
+  app.post("/api/generate-player-sheets", async (req: Request, res: Response) => {
+    try {
+      // Validate the world output
+      const worldOutput = worldOutputSchema.parse(req.body);
+      
+      // Generate player sheets using Claude API
+      const playerSheets = await generatePlayerSheets(worldOutput);
+      
+      res.json({ playerSheets });
+    } catch (error) {
+      console.error("Error generating player sheets:", error);
+      
+      if (error instanceof ZodError) {
+        // Handle validation errors
+        const validationError = fromZodError(error);
+        return res.status(400).json({ message: validationError.message });
+      }
+      
+      res.status(500).json({ 
+        message: error instanceof Error ? error.message : "Failed to generate player sheets" 
+      });
+    }
+  });
 
   const httpServer = createServer(app);
 
