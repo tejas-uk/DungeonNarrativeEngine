@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=MedievalSharp&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 25 15% 15%;
+  --foreground: 60 9.1% 97.8%;
+  
+  --card: 245 4.8% 95.9%;
+  --card-foreground: 20 14.3% 4.1%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  
+  --primary: 33 73% 31%;
+  --primary-foreground: 60 9.1% 97.8%;
+  --primary-light: 36 41% 54%;
+  --primary-dark: 33 73% 21%;
+  
+  --secondary: 0 59% 40%;
+  --secondary-foreground: 60 9.1% 97.8%;
+  --secondary-light: 0 50% 57%;
+  --secondary-dark: 0 59% 30%;
+  
+  --accent: 43 74% 49%;
+  --accent-foreground: 24 9.8% 10%;
+  --accent-light: 47 82% 68%;
+  --accent-dark: 43 74% 42%;
+  
+  --parchment: 60 55% 91%;
+  --parchment-dark: 60 45% 85%;
+  --parchment-darker: 57 35% 76%;
+  
+  --brown-dark: 16 40% 20%;
+  --brown-light: 16 26% 38%;
+  
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --ring: 35 91% 65%;
+  
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 20 14.3% 4.1%;
+  --foreground: 60 9.1% 97.8%;
+  
+  --card: 20 14.3% 4.1%;
+  --card-foreground: 60 9.1% 97.8%;
+  
+  --popover: 20 14.3% 4.1%;
+  --popover-foreground: 60 9.1% 97.8%;
+  
+  --primary: 60 9.1% 97.8%;
+  --primary-foreground: 24 9.8% 10%;
+  
+  --secondary: 12 6.5% 15.1%;
+  --secondary-foreground: 60 9.1% 97.8%;
+  
+  --muted: 12 6.5% 15.1%;
+  --muted-foreground: 24 5.4% 63.9%;
+  
+  --accent: 43 74% 49%;
+  --accent-foreground: 24 9.8% 10%;
+  
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  
+  --border: 12 6.5% 15.1%;
+  --input: 12 6.5% 15.1%;
+  --ring: 35 91% 65%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply font-sans bg-[#3E2723] text-foreground;
+  }
+}
+
+@layer utilities {
+  .font-medieval {
+    font-family: 'MedievalSharp', cursive;
+  }
+  
+  .font-cinzel {
+    font-family: 'Cinzel', serif;
+  }
+  
+  .font-serif {
+    font-family: 'Lora', serif;
+  }
+  
+  .bg-parchment {
+    background-color: #F5F5DC;
+  }
+  
+  .bg-parchment-dark {
+    background-color: #E8E6C9;
+  }
+  
+  .bg-parchment-darker {
+    background-color: #D6D2AF;
+  }
+  
+  .bg-brown-dark {
+    background-color: #3E2723;
+  }
+  
+  .bg-brown-light {
+    background-color: #795548;
+  }
+  
+  .text-parchment {
+    color: #F5F5DC;
+  }
+  
+  .text-brown-dark {
+    color: #3E2723;
+  }
+  
+  .text-primary {
+    color: #8B4513;
+  }
+  
+  .text-accent {
+    color: #DAA520;
+  }
+  
+  .bg-primary {
+    background-color: #8B4513;
+  }
+  
+  .bg-primary-dark {
+    background-color: #5E2F0D;
+  }
+  
+  .bg-accent {
+    background-color: #DAA520;
+  }
+  
+  .bg-accent-dark {
+    background-color: #B78818;
+  }
+  
+  .bg-accent-light {
+    background-color: #F7C762;
+  }
+  
+  .bg-secondary {
+    background-color: #A52A2A;
+  }
+  
+  .bg-secondary-dark {
+    background-color: #7A1F1F;
+  }
+  
+  .border-brown-light {
+    border-color: #795548;
+  }
+  
+  .border-accent {
+    border-color: #DAA520;
+  }
+}
+
+.scroll-top {
+  position: relative;
+  background-image: url('https://i.imgur.com/FYCGlXE.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 40px;
+}
+
+.scroll-bottom {
+  position: relative;
+  background-image: url('https://i.imgur.com/VIyEo1f.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 40px;
+}
+
+.scroll-bg {
+  background-color: #F5F5DC;
+  position: relative;
+}
+
+.scroll-bg::before, .scroll-bg::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://i.imgur.com/txmVlKF.png');
+  background-repeat: repeat-y;
+  background-size: 40px 100%;
+  z-index: 1;
+}
+
+.scroll-bg::before {
+  top: 0;
+  background-position: left top;
+}
+
+.scroll-bg::after {
+  top: 0;
+  background-position: right top;
+}
+
+.scroll-content {
+  position: relative;
+  z-index: 2;
+  padding: 20px 50px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 15px;
+  background: #3E2723;
+  border-radius: 5px;
+  background-image: url('https://i.imgur.com/txmVlKF.png');
+  background-size: cover;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #DAA520;
+  border: 2px solid #8B4513;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.tab-underline::after {
+  content: "";
+  height: 5px;
+  width: 100%;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  background-color: #DAA520;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tab-underline.active::after {
+  opacity: 1;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%238B4513' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+}
